@@ -10,7 +10,7 @@ jobs:
 
 - job: 'Test'
   pool:
-    vmImage: 'vs2017-win2016'
+    vmImage: 'windows-latest'
   strategy:
     matrix:
       Python37:
@@ -25,12 +25,13 @@ jobs:
 
   - script: pip install robotframework robotframework-seleniumlibrary && npm install chromedriver
     displayName: 'Install dependencies'
-  
+
   - powershell: robot --pythonpath . -x outputxunit.xml TestCases.robot
     displayName: 'Run Robot Scripts'
+
   - task: PublishTestResults@2
     inputs:
       testResultsFiles: outputxunit.xml
       searchFolder: 'D:\a\1\s\'
-      condition: succeededOrFailed()
-      displayName: 'Publish Test Results outputxunit.xml'
+    condition: succeededOrFailed()
+    displayName: 'Publish Test Results outputxunit.xml'
