@@ -3,7 +3,7 @@ Documentation   Auto1/QA Task
 Library         SeleniumLibrary
 Library         String
 Library         helpers.HelpLib
-Library         Collections    
+Library         Collections
 Suite Setup     Open URL Locally
 Suite Teardown  Close Browser
 
@@ -27,13 +27,13 @@ Open Tests in Souce Labs
     Set to Dictionary    ${desired_capabilities}    browserName    chrome
 
     ${executor}=    Evaluate          str('http://milan.novovic:0f772a45-b623-4d44-a01f-9a1db40f0d5d@ondemand.saucelabs.com:80/wd/hub')
-    Create Webdriver    Remote      desired_capabilities=${desired_capabilities}    command_executor=${executor}   
+    Create Webdriver    Remote      desired_capabilities=${desired_capabilities}    command_executor=${executor}
 
 
 Open URL Locally
     #Open Webdriver hosted on Azure Devops
     Create Webdriver    Chrome    executable_path=D:/a/1/s/node_modules/chromedriver/lib/chromedriver/chromedriver.exe
-    
+
     # Open Browser on Local Machine
     # Open Browser    https://www.autohero.com/de/search/    chrome
     Maximize Browser Window
@@ -48,21 +48,21 @@ User is on Advanced Search Page
 
 User Select Filter for First registration
     Click Element                        //span[contains(text(),'Erstzulassung ab')]
-    Wait Until Element Is Visible        //select[@name='yearRange.min']/*[text()='2014']   
+    Wait Until Element Is Visible        //select[@name='yearRange.min']/*[text()='2014']
     Click Element                        //select[@name='yearRange.min']/*[text()='2014']
     Sleep   3s
     Click Element                        //a[contains(text(),'Ergebnisse')]
 
 Verify all cars are filtered by first registration
 
-#This Keyword  will take all elements with registration, 
+#This Keyword  will take all elements with registration,
 #pass it to python method which will return if there are registration before 2014
- 
+
     Sleep   3s
 
     @{locators}    Get Webelements      //*[contains(@class,'specItem___')][1]
     @{result}=       Create List
-    
+
     :FOR   ${locator}   IN    @{locators}
         \       ${name}=    Get Text    ${locator}
         \       ${matches}=		Get Regexp Matches      ${name}  	\\d{4}
@@ -73,10 +73,10 @@ Verify all cars are filtered by first registration
 
     :FOR   ${locator}   IN    @{flat}
     \   Log   ${locator}
-    \   Run Keyword Unless  ${locator} >= ${numbs}      Pass   
- 
-User Select Filter for Price Decsending 
-    Wait Until Element Is Visible    //select[contains(@name,'sort')]  
+    \   Run Keyword Unless  ${locator} >= ${numbs}      Pass
+
+User Select Filter for Price Decsending
+    Wait Until Element Is Visible    //select[contains(@name,'sort')]
     Click Element                    //select[contains(@name,'sort')]
     Sleep   2s
     Click Element                    //*[text()='Höchster Preis']
@@ -91,7 +91,7 @@ Verify all Cars are Filtered By Price Descending
     ${sortedList}=       Create List
     :FOR   ${locator}   IN    @{locators}
         \       ${name}=    Get Text    ${locator}
-        \       ${matches}=		Get Regexp Matches      ${name}  	\^.....     
+        \       ${matches}=		Get Regexp Matches      ${name}  	\^.....
         \       Append To List  ${priceAll}  ${matches}
         ${flat}    Evaluate    [item for sublist in ${priceAll} for item in (sublist if isinstance(sublist, list) else [sublist])]
 
@@ -100,10 +100,10 @@ Verify all Cars are Filtered By Price Descending
     Should Be Equal as Strings     ${sortPrices}   True
 
     Log  ${sortPrices}
-    Log  ${flat}   
+    Log  ${flat}
 
 
- 
+
 
 
 
