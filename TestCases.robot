@@ -2,7 +2,8 @@
 Documentation   Auto1/QA Task
 Library         SeleniumLibrary
 Library         String
-Library         helpers.HelpLib
+#Library         helpers.HelpLib
+Library         helpers.py
 Library         Collections
 Suite Setup     Open URL Locally
 Suite Teardown  Close Browser
@@ -39,26 +40,29 @@ Open URL Locally
     Maximize Browser Window
 
 Open URL AutoHero
-    Go To    https://www.autohero.com/
+    Go To    https://www.autohero.com
+    #Go To    https://www.autohero.com/de/search/
 
 User is on Advanced Search Page
-    Sleep   5s
-    Click Element                       //button[contains(text(),'Erweiterte Suche')]
-    Wait Until Element Is Visible       //span[contains(text(),'Erstzulassung ab')]
+    Sleep   2s
+    Click Element                       //button[contains(text(),'Alles akzeptieren')]
+    Sleep   1s
+    Click Element                       //a[contains(text(),'Finde dein Auto')]
+    Wait Until Element Is Visible       //span[contains(text(),'Erstzulassung')]
 
 User Select Filter for First registration
-    Click Element                        //span[contains(text(),'Erstzulassung ab')]
-    Wait Until Element Is Visible        //select[@name='yearRange.min']/*[text()='2014']
-    Click Element                        //select[@name='yearRange.min']/*[text()='2014']
-    Sleep   3s
-    Click Element                        //a[contains(text(),'Ergebnisse')]
+    Click Element                        //span[contains(text(),'Erstzulassung')]
+    Wait Until Element Is Visible        //select[@id='rangeStart']/*[text()='2014']
+    Click Element                        //select[@id='rangeStart']/*[text()='2014']
+    Sleep   1s
+    #Click Element                        //a[contains(text(),'Ergebnisse')]
 
 Verify all cars are filtered by first registration
 
 #This Keyword  will take all elements with registration,
 #pass it to python method which will return if there are registration before 2014
 
-    Sleep   3s
+    Sleep   1s
 
     @{locators}    Get Webelements      //*[contains(@class,'specItem___')][1]
     @{result}=       Create List
@@ -76,10 +80,12 @@ Verify all cars are filtered by first registration
     \   Run Keyword Unless  ${locator} >= ${numbs}      Pass
 
 User Select Filter for Price Decsending
-    Wait Until Element Is Visible    //select[contains(@name,'sort')]
-    Click Element                    //select[contains(@name,'sort')]
-    Sleep   2s
-    Click Element                    //*[text()='Höchster Preis']
+    Wait Until Element Is Visible    //*[@id="app"]/div/main/div/div[3]/div/div[1]/button[8]
+    Click Element                    //*[@id="app"]/div/main/div/div[3]/div/div[1]/button[8]
+    Sleep   3s
+    #Click Element                    //*[@id="sortBy"]/option[4]
+    Click Element    //select[@id="sortBy"]
+    Select From List by Value    //select[@id="sortBy"]    4
 
 Verify all Cars are Filtered By Price Descending
 
