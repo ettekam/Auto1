@@ -97,7 +97,7 @@ Verify all Cars are Filtered By Price Descending
         ${flat}    Evaluate    [item for sublist in ${priceAll} for item in (sublist if isinstance(sublist, list) else [sublist])]
     END
 
-    ${sortPrices}=    Sorted List     ${flat}
+    ${sortPrices}=    Sort List     ${flat}
 
     Should Be Equal as Strings     ${sortPrices}   True
 
