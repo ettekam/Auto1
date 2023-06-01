@@ -67,17 +67,19 @@ Verify all cars are filtered by first registration
     @{locators}    Get Webelements      //*[contains(@class,'specItem___')][1]
     @{result}=       Create List
 
-    :FOR   ${locator}   IN    @{locators}
-        \       ${name}=    Get Text    ${locator}
-        \       ${matches}=		Get Regexp Matches      ${name}  	\\d{4}
-        \       Append To List   ${result}    ${matches}
+    FOR   ${locator}   IN    @{locators}
+               ${name}=    Get Text    ${locator}
+               ${matches}=		Get Regexp Matches      ${name}  	\\d{4}
+               Append To List   ${result}    ${matches}
          ${flat}    Evaluate    [item for sublist in ${result} for item in (sublist if isinstance(sublist, list) else [sublist])]
 
     ${numbs}=    Convert To Integer   2014
+    END
 
-    :FOR   ${locator}   IN    @{flat}
-    \   Log   ${locator}
-    \   Run Keyword Unless  ${locator} >= ${numbs}      Pass
+    FOR   ${locator}   IN    @{flat}
+       Log   ${locator}
+       Run Keyword Unless  ${locator} >= ${numbs}      Pass
+    END
 
 User Select Filter for Price Decsending
     Wait Until Element Is Visible    //*[@id="app"]/div/main/div/div[3]/div/div[1]/button[8]
@@ -95,11 +97,12 @@ Verify all Cars are Filtered By Price Descending
     @{locators}    Get Webelements      //*[contains(@class,'totalPrice')][1]
     ${priceAll}=       Create List
     ${sortedList}=       Create List
-    :FOR   ${locator}   IN    @{locators}
-        \       ${name}=    Get Text    ${locator}
-        \       ${matches}=		Get Regexp Matches      ${name}  	\^.....
-        \       Append To List  ${priceAll}  ${matches}
+    FOR   ${locator}   IN    @{locators}
+               ${name}=    Get Text    ${locator}
+               ${matches}=		Get Regexp Matches      ${name}  	\^.....
+               Append To List  ${priceAll}  ${matches}
         ${flat}    Evaluate    [item for sublist in ${priceAll} for item in (sublist if isinstance(sublist, list) else [sublist])]
+    END
 
     ${sortPrices}=    Sorted List     ${flat}
 
