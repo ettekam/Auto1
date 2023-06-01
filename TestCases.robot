@@ -2,7 +2,6 @@
 Documentation   Auto1/QA Task
 Library         SeleniumLibrary
 Library         String
-#Library         helpers.HelpLib
 Library         helpers.py
 Library         Collections
 Suite Setup     Open URL Locally
@@ -34,14 +33,10 @@ Open Tests in Souce Labs
 Open URL Locally
     #Open Webdriver hosted on Azure Devops
     Create Webdriver    Chrome    executable_path=D:/a/1/s/node_modules/chromedriver/lib/chromedriver/chromedriver.exe
-
-    # Open Browser on Local Machine
-    # Open Browser    https://www.autohero.com/de/search/    chrome
     Maximize Browser Window
 
 Open URL AutoHero
     Go To    https://www.autohero.com
-    #Go To    https://www.autohero.com/de/search/
 
 User is on Advanced Search Page
     Sleep   2s
@@ -54,7 +49,6 @@ User Select Filter for First registration
     Click Element                        //span[contains(text(),'Erstzulassung')]
     Wait Until Element Is Visible        //select[@id='rangeStart']/*[text()='2014']
     Click Element                        //select[@id='rangeStart']/*[text()='2014']
-    Sleep   1s
     #Click Element                        //a[contains(text(),'Ergebnisse')]
 
 Verify all cars are filtered by first registration
@@ -85,7 +79,6 @@ User Select Filter for Price Decsending
     Wait Until Element Is Visible    //*[@id="app"]/div/main/div/div[3]/div/div[1]/button[8]
     Click Element                    //*[@id="app"]/div/main/div/div[3]/div/div[1]/button[8]
     Sleep   3s
-    #Click Element                    //*[@id="sortBy"]/option[4]
     Click Element    //select[@id="sortBy"]
     Select From List by Value    //select[@id="sortBy"]    4
 
@@ -110,14 +103,3 @@ Verify all Cars are Filtered By Price Descending
 
     Log  ${sortPrices}
     Log  ${flat}
-
-
-
-
-
-
-
-
-
-
-
